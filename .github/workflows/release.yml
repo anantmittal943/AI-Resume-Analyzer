@@ -1,0 +1,31 @@
+name: Release Draft
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  draft-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          previous_tag=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$previous_tag" ]; then
+            git log --pretty=format:"- %s (%h)" > RELEASE_NOTES.md
+          else
+            git log "$previous_tag"..HEAD --pretty=format:"- %s (%h)" > RELEASE_NOTES.md
+          fi
+
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          body_path: RELEASE_NOTES.md
