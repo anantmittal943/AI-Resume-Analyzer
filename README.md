@@ -32,8 +32,16 @@ AI Resume Analyzer is a production-oriented monorepo that compares resumes with 
 docker compose up --build
 ```
 
+If port 8080 is already in use, set a different host port first:
+
+```bash
+# PowerShell
+$env:FRONTEND_PORT = "8081"
+docker compose up --build
+```
+
 4. Open:
-- Frontend: http://localhost:8080
+- Frontend: http://localhost:8080 (or your configured FRONTEND_PORT)
 - Backend docs: http://localhost:8000/docs
 
 ## Quick Start (Without Docker)

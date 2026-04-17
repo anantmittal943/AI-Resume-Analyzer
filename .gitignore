@@ -31,8 +31,6 @@ frontend/vite.config.js
 frontend/vite.config.d.ts
 
 # Environment
-.env
-.env.*
 !.env.example
 
 # Editors
@@ -49,3 +47,4 @@ build/
 backend/storage/
 backend/*.db
 backend/*.sqlite3
+config.bat
